@@ -1,0 +1,8 @@
+label: dos
+label-id: 0xaf945b79
+device: /dev/sdg
+unit: sectors
+sector-size: 512
+
+size=+200M, type=c, bootable
+type=83
