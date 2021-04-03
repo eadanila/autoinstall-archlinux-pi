@@ -2,6 +2,7 @@
 
 # Automation of the install instructions for AArch 64 found at:
 # https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-4
+# Should also work with Pi 3.
 
 function usage() {
     echo Usage: $0 /dev/sdX
@@ -90,7 +91,7 @@ verify_exit $? "Extracting tarball failed" -10
 mv $TMP/root/boot/* $BOOT
 
 echo Updating fstab...
-sed -i 's/mmcblk0/mmcblk1/g' $ROOT/etc/fstab
+sed -i 's/\/dev\/mmcblk0p1/LABEL=boot/g' $ROOT/etc/fstab
 verify_exit $? "Updating fstab failed" -11
 
 echo Synchronizing partitions...
