@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Automation of the install instructions for AArch 64 found at:
+# https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-4
+
 function usage() {
     echo Usage: $0 /dev/sdX
     exit $1
@@ -23,6 +26,11 @@ fi
 if [[ ! -e $1 ]]; then
     echo Device not found: $1
     usage 3
+fi
+
+if [[ `id -u` -ne 0 ]]; then
+    echo "This script needs root permssions to interact with block devices. Please run as root."
+    exit 4
 fi
 
 TGTDEV=$1
@@ -93,7 +101,7 @@ umount $BOOT $ROOT
 verify_exit $? "Failed to umount partitions" -12
 
 # Verify temp directory again because we're about to
-# rm -r $TMP and we definitely don't want to accidetally
+# rm -r $TMP and we definitely don't want to accidentally
 # rm some random directory (especially if that directory
 # is /)
 echo Cleaning up...
